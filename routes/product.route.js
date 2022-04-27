@@ -52,6 +52,8 @@ route.post("/product-search", productController.searchProduct);
 
 route.post("/product-approved-cancel", token.verifyToken, productController.isApprovedCancel);
 
+route.post("/product-list-similar", productController.productListSimilar);
+
 route.post("/product-list-category", productController.productListByCategory);
 
 route.post("/product-list-by-seller", token.verifyToken, productController.productListBySeller);

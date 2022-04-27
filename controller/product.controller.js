@@ -217,12 +217,32 @@ exports.searchProduct = (request, response, next) => {
         });
 }
 
-exports.productListByCategory = (request, response, next) => {
+exports.productListSimilar = (request, response, next) => {
     Product.find({
             $and: [
                 { isApproved: true },
                 { categoryName: request.body.categoryName },
                 { _id: { $ne: request.body.productId } }
+            ]
+        })
+        .then(result => {
+            if (result.length > 0)
+
+                return response.status(201).json(result);
+            else
+                return response.status(201).json({ message: "Result Not Found......." });
+        })
+        .catch(err => {
+            console.log(err + "===========================errrrr");
+            return response.status(201).json({ error: "Internal Server Error......." });
+        });
+}
+
+exports.productListByCategory = (request, response, next) => {
+    Product.find({
+            $and: [
+                { isApproved: true },
+                { categoryName: request.body.categoryName },
             ]
         })
         .then(result => {
